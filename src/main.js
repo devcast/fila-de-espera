@@ -8,12 +8,16 @@
     // RIP jQuery
     const $ = document.querySelectorAll.bind(document)
     const $queue = $('.js-queue')[0]
+    const $form = $('.js-form')[0]
 
     // Database Stuff
-    const DB = firebase.database()
     const Users = DB.ref('users')
     const UsersList = Users.limitToLast(10);
     let isLoading = true
+
+    if (!localStorage.getItem('user-key')) {
+        $form.classList.remove('is-hidden')
+    }
 
     UsersList.on('child_added', function (data) {
         const user = data.val()
@@ -23,7 +27,13 @@
             isLoading = false
         }
 
-        $queue.insertAdjacentHTML('afterBegin', `<li data-key="${user.key}">${user.twitter}</li>`)
+        $queue.insertAdjacentHTML('afterBegin', `
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" data-key="${user.key}">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">${user.twitter}</h2>
+                </div>
+            </div>
+        `)
     })
 
     UsersList.on('child_changed', function (data) {
@@ -39,14 +49,28 @@
                 return navigator.serviceWorker.ready
             })
             .then(function (register) {
-                register.pushManager.subscribe({
+                $form.addEventListener('submit', function (event) {
+                    event.preventDefault()
+
+                    const elements = Array.from($('[name]'))
+
+                    const form = elements.reduce(function (form, input) {
+                        if (!!input.name) {
+                            form[input.name] = input.value
+                        }
+
+                        return form
+                    }, {})
+
+                    register.pushManager.subscribe({
                         userVisibleOnly: true
                     })
                     .then(function (subscription) {
-                        localStorage.setItem('subscription_id', subscription.endpoint)
-
-                        const token = localStorage.subscription_id.split('send/')[1]
+                        form.subscription_id = subscription.endpoint.split('send/')[1]
+                        console.log('subscription', form.twitter)
+                        saveUser(form.twitter, form.subscription_id)
                     })
+                })
             })
             .catch(function (error) {
                 console.error(error)
@@ -60,14 +84,14 @@
 
         let user = {
             twitter: twitter,
-            subscription_id: subscription_id
+            subscription_id: subscription_id,
+            key: Users.push().key
         }
 
-        const key = Users.push().key
+        const updates = {}
+        updates['users/' + user.key] = user
 
-        var updates = {}
-
-        updates['users/' + key] = user
+        localStorage.setItem('user-key', user.key)
 
         return DB.ref().update(updates)
     }

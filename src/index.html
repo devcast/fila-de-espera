@@ -26,12 +26,16 @@
         .is-hidden {
             display: none;
         }
+
+        [data-ami="true"] {
+            after: "(eu)"    
+        }
     </style>
 </head>
 <body>
 
     <div class="mdl-card">
-        <h2>Fila de Espera - iMasters</h2>
+        <h2>Fila de Espera</h2>
 
         <form class="js-form is-hidden">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -46,7 +50,7 @@
             <p>Clique apenas se tiver certeza que quer recever Push Notifications</p>
         </form>
 
-        <h2>Você está na posição x da fila</h2>
+        <h2 class="summary"></h2>
 
         <div class="js-queue">
             <div class="mdl-spinner mdl-js-spinner is-active"></div>

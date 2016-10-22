@@ -41,7 +41,7 @@
 
             isEmpty = true
             localStorage.removeItem('user-key')
-            isScheduled()
+            isScheduled(false)
 
             return
         }
@@ -80,13 +80,13 @@
                     element.remove()
                 })
 
-            if ($('[data-key]').length === 0) {
-                isEmpty = true
+            // if ($('[data-key]').length === 0) {
+            //     isEmpty = true
 
-                if (user.key === userKey) {
-                    isScheduled(false)
-                }
-            }
+            //     if (user.key === userKey) {
+            //         isScheduled(false)
+            //     }
+            // }
         } else {
             $queue.insertAdjacentHTML('afterBegin', `
                 <li class="mdl-list__item mdl-list__item--two-line" data-key="${user.key}">
@@ -119,6 +119,7 @@
 
             if (user.key === userKey) {
                 localStorage.removeItem('user-key')
+                alert('se fudeu!')
                 isScheduled(false)
             } 
         }

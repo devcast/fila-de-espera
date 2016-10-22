@@ -149,6 +149,8 @@
             .catch(function (error) {
                 // console.error(error)
             })
+
+            checkNotificationComplete()
     }
 
     function saveUser(twitter, subscription_id) {
@@ -200,6 +202,13 @@
         } else {
             return ''
         }
+    }
+
+    function checkNotificationComplete() {
+        if (location.search !== '?me') return
+        if (!localStorage.getItem('user-key')) return
+
+        Users.child(localStorage.getItem('user-key')).remove()
     }
 
     window.saveUser = saveUser

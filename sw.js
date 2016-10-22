@@ -1,8 +1,12 @@
-var cacheName = 'cache-name-12'
+var cacheName = 'cache-name-123456'
 var cacheFiles = [
-    // './',
-    // './index.html',
-    // './main.js'
+    './',
+    './index.html',
+    './main.js'
+    // 'https://www.gstatic.com/firebasejs/3.5.1/firebase.js',
+    // 'https://code.getmdl.io/1.2.1/material.min.js',
+    // 'https://fonts.googleapis.com/icon?family=Material+Icons',
+    // 'https://code.getmdl.io/1.2.1/material.indigo-pink.min.css'
 ]
 
 self.addEventListener('install', function (event) {
@@ -38,7 +42,7 @@ self.addEventListener('fetch', function (event) {
     event.respondWith(
         caches.match(event.request)
             .then(function (response) {
-                return response || fetch(event.request)
+                return response || fetch(event.request, { include: 'CORS' })
             })
     )
 })

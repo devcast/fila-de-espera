@@ -19,7 +19,7 @@
 
     isScheduled()
 
-    Users.limitToLast(10).once('value', function (data) {
+    Users.limitToLast(100).once('value', function (data) {
         const users = data.val()
         const userKey = localStorage.getItem('user-key')
 
@@ -80,12 +80,14 @@
                     element.remove()
                 })
 
+                if (user.key === userKey) {
+                    isScheduled(false)
+                }
+
             // if ($('[data-key]').length === 0) {
             //     isEmpty = true
 
-            //     if (user.key === userKey) {
-            //         isScheduled(false)
-            //     }
+            
             // }
         } else {
             $queue.insertAdjacentHTML('afterBegin', `
@@ -104,6 +106,10 @@
             $('[data-key="empty"]')[0].remove()
             isEmpty = false
         }
+    })
+
+    Users.on('child_added', function (data) {
+        // TODO
     })
 
     // Quando um elemento é alterado'
@@ -228,7 +234,14 @@
             setTimeout(function () {
                 location.href = location.pathname
             }, 1500)
+            return
         } else if (!localStorage.getItem('user-key') && location.search !== '') {
+            location.href = location.pathname
+            return
+        }
+
+        if (localStorage.getItem('user-key')) {
+            localStorage.removeItem('user-key')
             location.href = location.pathname
         }
     }

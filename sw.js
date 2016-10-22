@@ -1,4 +1,4 @@
-var cacheName = 'cache-name-1234567899'
+var cacheName = 'cache-1'
 var cacheFiles = [
     './',
     './index.html',
@@ -29,7 +29,6 @@ self.addEventListener('activate', function (event) {
             .then(function (keyList) {
                 console.log(keyList)
                 return Promise.all(keyList.map(function (key) {
-                    console.log(key)
                     if (key !== cacheName) return caches.delete(key)
                 }))
             })
@@ -71,17 +70,6 @@ self.addEventListener('notificationclick', function(event) {
             type: 'window'
         })
         .then(function(windowClients) {
-            // for (var i = 0; i < windowClients.length; i++) {
-            //     var client = windowClients[i];
-
-            //     // executado para cada janela do site aberta no browser
-            //     // console.dir(client)
-
-            //     if (client.url === url && 'focus' in client && client.visibilityState === 'hidden') {
-            //         return client.focus();
-            //     }
-            // }
-
             if (clients.openWindow) {
                 return clients.openWindow(url + '?me');
             }

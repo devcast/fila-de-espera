@@ -212,6 +212,8 @@
         localStorage.removeItem('user-key')
 
         isScheduled()
+
+        location.href = location.pathname
     }
 
     window.saveUser = saveUser

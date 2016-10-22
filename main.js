@@ -19,7 +19,7 @@
 
     isScheduled()
 
-    Users.limitToLast(10).once('value', function (data) {
+    Users.limitToLast(100).once('value', function (data) {
         const users = data.val()
         const userKey = localStorage.getItem('user-key')
 

@@ -72,6 +72,7 @@
         // console.log('child_changed: ', data.val())
 
         const user = data.val()
+        const userKey = localStorage.getItem('user-key')
 
         if ($(`[data-key="${user.key}"]`).length) {
             Array.from($(`[data-key="${user.key}"]`))
@@ -87,11 +88,14 @@
             }
         } else {
             $queue.insertAdjacentHTML('afterBegin', `
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp" data-key="${user.key}">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">${user.twitter}</h2>
-                    </div>
-                </div>
+                <li class="mdl-list__item mdl-list__item--two-line" data-key="${user.key}">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">person</i>
+                        <span>${user.twitter}</span>
+                        <span class="mdl-list__item-sub-title" data>Agora</span>
+                    </span>
+                    ${isUserKey(user.key, userKey)}
+                </li>
             `)
         }
 

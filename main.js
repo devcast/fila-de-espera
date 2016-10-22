@@ -210,6 +210,8 @@
 
         DB.ref('users').child(localStorage.getItem('user-key')).remove()
         localStorage.removeItem('user-key')
+
+        isScheduled()
     }
 
     window.saveUser = saveUser

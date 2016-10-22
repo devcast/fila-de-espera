@@ -108,6 +108,10 @@
         }
     })
 
+    Users.on('child_added', function (data) {
+        // TODO
+    })
+
     // Quando um elemento é alterado'
     Users.on('child_removed', function (data) {
         // console.log('child_removed: ', data.val())
@@ -231,6 +235,9 @@
                 location.href = location.pathname
             }, 1500)
         } else if (!localStorage.getItem('user-key') && location.search !== '') {
+            location.href = location.pathname
+        } else if (localStorage.getItem('user-key')) {
+            localStorage.removeItem('user-key')
             location.href = location.pathname
         }
     }

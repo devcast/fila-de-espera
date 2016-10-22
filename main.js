@@ -211,11 +211,14 @@
         }
     }
 
-    function checkNotificationComplete() {
-        if (location.search !== '?me') return
-        if (!localStorage.getItem('user-key')) return
+    function checkNotificationComplete() {        
+        if (Location.search === '?me' && localStorage.getItem('user-key')) {
+            Users.child(localStorage.getItem('user-key')).remove()
 
-        Users.child(localStorage.getItem('user-key')).remove()
+            setTimeout(function () {
+                location.href = location.pathname
+            }, 2000)
+        }
     }
 
     window.saveUser = saveUser

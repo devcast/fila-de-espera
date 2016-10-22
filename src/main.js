@@ -79,6 +79,8 @@
                     element.remove()
                 })
 
+                console.log('Removido')
+
             if ($('[data-key]').length === 0) {
                 isEmpty = true
                 isScheduled(false)
@@ -109,6 +111,7 @@
         if (element) {
             element.remove()
             localStorage.removeItem('user-key')
+            isScheduled()
         }
 
         if ($('[data-key]').length === 0) {

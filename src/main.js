@@ -119,7 +119,6 @@
 
             if (user.key === userKey) {
                 localStorage.removeItem('user-key')
-                alert('se fudeu!')
                 isScheduled(false)
             } 
         }

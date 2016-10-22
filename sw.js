@@ -1,4 +1,4 @@
-var cacheName = 'cache-1222'
+var cacheName = 'cache-9999'
 var cacheFiles = [
     './',
     './index.html',

@@ -236,7 +236,9 @@
             }, 1500)
         } else if (!localStorage.getItem('user-key') && location.search !== '') {
             location.href = location.pathname
-        } else if (localStorage.getItem('user-key')) {
+        }
+
+        if (localStorage.getItem('user-key')) {
             localStorage.removeItem('user-key')
             location.href = location.pathname
         }

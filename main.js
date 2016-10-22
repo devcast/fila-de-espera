@@ -217,7 +217,7 @@
 
             setTimeout(function () {
                 location.href = location.pathname
-            }, 2000)
+            }, 1500)
         }
     }
 

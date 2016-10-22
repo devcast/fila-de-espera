@@ -220,7 +220,7 @@
             setTimeout(function () {
                 location.href = location.pathname
             }, 1500)
-        } else if (!localStorage.getItem('user-key')) {
+        } else if (!localStorage.getItem('user-key') && location.search !== '') {
             location.href = location.pathname
         }
     }

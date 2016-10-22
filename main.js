@@ -80,12 +80,14 @@
                     element.remove()
                 })
 
+                if (user.key === userKey) {
+                    isScheduled(false)
+                }
+
             // if ($('[data-key]').length === 0) {
             //     isEmpty = true
 
-            //     if (user.key === userKey) {
-            //         isScheduled(false)
-            //     }
+            
             // }
         } else {
             $queue.insertAdjacentHTML('afterBegin', `

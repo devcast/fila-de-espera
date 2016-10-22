@@ -208,7 +208,8 @@
         if (location.search !== '?me') return
         if (!localStorage.getItem('user-key')) return
 
-        Users.child(localStorage.getItem('user-key')).remove()
+        DB.ref('users').child(localStorage.getItem('user-key')).remove()
+        localStorage.removeItem('user-key')
     }
 
     window.saveUser = saveUser

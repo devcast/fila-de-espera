@@ -1,0 +1,18 @@
+{
+  "name": "fila-de-espera",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ./src -C1",
+    "deploy": "gh-pages -d ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^0.11.0",
+    "http-server": "^0.9.0"
+  }
+}

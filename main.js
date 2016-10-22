@@ -234,8 +234,10 @@
             setTimeout(function () {
                 location.href = location.pathname
             }, 1500)
+            return
         } else if (!localStorage.getItem('user-key') && location.search !== '') {
             location.href = location.pathname
+            return
         }
 
         if (localStorage.getItem('user-key')) {

@@ -10,10 +10,20 @@
 
     <!-- Wide card with share menu button -->
     <style>
+        body{
+            background:#f4f4f4;
+        }
         .demo-card-wide.mdl-card {
             min-height: auto;
         }
-        
+        .mdl-card{
+            width:100%;
+            max-width:500px;
+            background:#fff;
+            display:block;
+            margin:20px auto;
+            padding:30px;
+        }
         .demo-card-wide > .mdl-card__title {
             color: #000;
             height: auto;
@@ -26,35 +36,57 @@
         .is-hidden {
             display: none;
         }
+        .mdl-textfield{
+            width:45%;
+        }
 
-        [data-ami="true"] {
-            after: "(eu)"    
+        .inputs {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        [data-key="empty"] {
+            color: #E91E63;
         }
     </style>
 </head>
 <body>
 
     <div class="mdl-card">
-        <h2>Fila de Espera</h2>
+        <h2 class="summary"></h2>
 
         <form class="js-form is-hidden">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input name="twitter" class="mdl-textfield__input" type="text" required id="twitter">
-                <label class="mdl-textfield__label" for="twitter">Nome</label>
-            </div>
+            <p>Coloque seu nome no campo abaixo para entrar na fila de espera.</p>
+            <div class="inputs">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input name="twitter" class="mdl-textfield__input" type="text" required id="twitter">
+                    <label class="mdl-textfield__label" for="twitter">Nome</label>
+                </div>
 
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Permitir Notificações
-            </button>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Permitir Notificações
+                </button>
+            </div>
 
             <p>Clique apenas se tiver certeza que quer recever Push Notifications</p>
         </form>
 
-        <h2 class="summary"></h2>
+        <h3>Acompanhe a fila de espera</h3>
 
-        <div class="js-queue">
-            <div class="mdl-spinner mdl-js-spinner is-active"></div>
-        </div>
+        <ul class="js-queue mdl-list">
+            <li class="mdl-spinner mdl-js-spinner is-active" style="display:block; margin:0 auto;"></li>
+            <!--<li class="mdl-list__item mdl-list__item--two-line">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-avatar">person</i>
+                    <span>Aaron Paul</span>
+                    <span class="mdl-list__item-sub-title">14min esperando</span>
+                </span>
+                <span class="mdl-list__item-secondary-content">
+                    <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+                </span>
+            </li>-->
+        </ul>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>

@@ -3,12 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-    <h1>Alo amor, to te ligando de um orelhão</h1>
-    
-    <script src="sw.js"></script>
-    <script src="main.js"></script>
+    <h1>Fila de Espera - iMasters</h1>
+    <form class="js-form">
+        <label>Twitters: <input name="twitter" type="text"></label>
+        <button type="submit">Permitir Notificacoes</button>
+    </form>
+
+    <h1>Você está na posição x da fila</h1>
+
+    <ol class="js-queue">
+        <li class="loading">Carregando...</li>
+    </ol>
+
+    <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCBjoejXOvMm03QO8Ne2x9XGLsG3nWtuIE",
+        authDomain: "fila-de-espera.firebaseapp.com",
+        databaseURL: "https://fila-de-espera.firebaseio.com",
+        storageBucket: "fila-de-espera.appspot.com",
+        messagingSenderId: "835679819714"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database()
+    </script>
+    <script src="main.js"></script>             
 </body>
 </html>

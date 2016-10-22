@@ -1,8 +1,8 @@
-var cacheName = 'cache-name-1234567'
+var cacheName = 'cache-name-12'
 var cacheFiles = [
-    './',
-    './index.html',
-    './main.js'
+    // './',
+    // './index.html',
+    // './main.js'
 ]
 
 self.addEventListener('install', function (event) {

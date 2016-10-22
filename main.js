@@ -125,6 +125,8 @@
     })
 
     function init() {
+        checkNotificationComplete()
+
         navigator.serviceWorker.register('sw.js')
             .then(function () {
                 return navigator.serviceWorker.ready
@@ -156,8 +158,6 @@
             .catch(function (error) {
                 // console.error(error)
             })
-
-            checkNotificationComplete()
     }
 
     function saveUser(twitter, subscription_id) {
@@ -212,7 +212,7 @@
     }
 
     function checkNotificationComplete() {        
-        if (Location.search === '?me' && localStorage.getItem('user-key')) {
+        if (location.search === '?me' && localStorage.getItem('user-key')) {
             Users.child(localStorage.getItem('user-key')).remove()
 
             setTimeout(function () {

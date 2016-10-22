@@ -41,7 +41,7 @@
 
             isEmpty = true
             localStorage.removeItem('user-key')
-            isScheduled()
+            isScheduled(false)
 
             return
         }
@@ -80,12 +80,13 @@
                     element.remove()
                 })
 
-                console.log('Removido')
+            // if ($('[data-key]').length === 0) {
+            //     isEmpty = true
 
-            if ($('[data-key]').length === 0) {
-                isEmpty = true
-                isScheduled(false)
-            }
+            //     if (user.key === userKey) {
+            //         isScheduled(false)
+            //     }
+            // }
         } else {
             $queue.insertAdjacentHTML('afterBegin', `
                 <li class="mdl-list__item mdl-list__item--two-line" data-key="${user.key}">
@@ -110,21 +111,31 @@
         // console.log('child_removed: ', data.val())
 
         const user = data.val()
+        const userKey = localStorage.getItem('user-key')
         const element = $(`[data-key="${user.key}"]`)[0]
 
         if (element) {
             element.remove()
-            localStorage.removeItem('user-key')
-            isScheduled()
+
+            if (user.key === userKey) {
+                localStorage.removeItem('user-key')
+                alert('se fudeu!')
+                isScheduled(false)
+            } 
         }
 
         if ($('[data-key]').length === 0) {
             isEmpty = true
-            isScheduled(false)
+            
+            if (user.key === userKey) {
+                isScheduled(false)
+            } 
         }
     })
 
     function init() {
+        checkNotificationComplete()
+
         navigator.serviceWorker.register('sw.js')
             .then(function () {
                 return navigator.serviceWorker.ready
@@ -156,8 +167,6 @@
             .catch(function (error) {
                 // console.error(error)
             })
-
-            checkNotificationComplete()
     }
 
     function saveUser(twitter, subscription_id) {
@@ -211,11 +220,18 @@
         }
     }
 
-    function checkNotificationComplete() {
-        if (location.search !== '?me') return
-        if (!localStorage.getItem('user-key')) return
+    function checkNotificationComplete() {        
+        if (location.search === '?me' && localStorage.getItem('user-key')) {
+            DB.ref('users').child(localStorage.getItem('user-key')).remove()
 
-        Users.child(localStorage.getItem('user-key')).remove()
+            console.log('uauau')
+
+            setTimeout(function () {
+                location.href = location.pathname
+            }, 1500)
+        } else if (!localStorage.getItem('user-key') && location.search !== '') {
+            location.href = location.pathname
+        }
     }
 
     window.saveUser = saveUser

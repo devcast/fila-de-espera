@@ -49,8 +49,8 @@ self.addEventListener('fetch', function (event) {
 
 self.addEventListener('push', function (event) {
     event.waitUntil(
-        self.registration.showNotification('Compareça ao stand da iMasters em 5 minutos', {
-            'body': 'The Message',
+        self.registration.showNotification('Stand iMasters', {
+            'body': 'Chegou sua vez',
             'icon': 'imasters-cubo.png'
         })
     )

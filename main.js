@@ -213,11 +213,15 @@
 
     function checkNotificationComplete() {        
         if (location.search === '?me' && localStorage.getItem('user-key')) {
-            Users.child(localStorage.getItem('user-key')).remove()
+            DB.ref('users').child(localStorage.getItem('user-key')).remove()
+
+            console.log('uauau')
 
             setTimeout(function () {
                 location.href = location.pathname
             }, 1500)
+        } else if (!localStorage.getItem('user-key')) {
+            location.href = location.pathname
         }
     }
 

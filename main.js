@@ -80,8 +80,6 @@
                     element.remove()
                 })
 
-                console.log('Removido')
-
             if ($('[data-key]').length === 0) {
                 isEmpty = true
                 isScheduled(false)
@@ -110,17 +108,24 @@
         // console.log('child_removed: ', data.val())
 
         const user = data.val()
+        const userKey = localStorage.getItem('user-key')
         const element = $(`[data-key="${user.key}"]`)[0]
 
         if (element) {
             element.remove()
-            localStorage.removeItem('user-key')
-            isScheduled()
+
+            if (user.key === userKey) {
+                localStorage.removeItem('user-key')
+                isScheduled(false)
+            } 
         }
 
         if ($('[data-key]').length === 0) {
             isEmpty = true
-            isScheduled(false)
+            
+            if (user.key === userKey) {
+                isScheduled(false)
+            } 
         }
     })
 

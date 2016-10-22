@@ -19,7 +19,7 @@
 
     isScheduled()
 
-    Users.limitToLast(5).once('value', function (data) {
+    Users.limitToLast(10).once('value', function (data) {
         const users = data.val()
         const userKey = localStorage.getItem('user-key')
 
@@ -32,9 +32,11 @@
         // Não há pessoas na fila
         if (!users) {
             $queue.insertAdjacentHTML('afterBegin', `
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp" data-key="empty">
+                <li class="mdl-list__item mdl-list__item--two-line"  data-key="empty">
+                    <i class="material-icons">new_releases</i>
+
                     Nenhuma pessoa na fila
-                </div>
+                </li>
             `)
 
             isEmpty = true
@@ -48,12 +50,19 @@
 
         // Coloca lista de pessoas na tela
         Object.keys(users).map(function (key) {
+
+            const user = users[key]
+            const timeWaiting = Math.round((Date.now() - user.startAt) / 1000 / 60)
+
             $queue.insertAdjacentHTML('afterBegin', `
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp" data-key="${key}" data-ami="${userKey}">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">${users[key].twitter}</h2>
-                    </div>
-                </div>
+                <li class="mdl-list__item mdl-list__item--two-line" data-key="${key}" data-ami="${userKey}">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">person</i>
+                        <span>${users[key].twitter}</span>
+                        <span class="mdl-list__item-sub-title" data>${timeWaiting}min esperando</span>
+                    </span>
+                    ${isUserKey(user.key, userKey)}
+                </li>
             `)
         })
     })
@@ -95,7 +104,7 @@
         // console.log('child_removed: ', data.val())
 
         const user = data.val()
-        const element = $(`[data-key="${user.key}"]`)[0] 
+        const element = $(`[data-key="${user.key}"]`)[0]
 
         if (element) {
             element.remove()
@@ -132,7 +141,7 @@
                         })
                         .then(function (subscription) {
                             form.subscription_id = subscription.endpoint.split('send/')[1]
-                            // console.log('subscription', form.twitter)
+                                // console.log('subscription', form.twitter)
                             saveUser(form.twitter, form.subscription_id)
                         })
                 })
@@ -181,5 +190,19 @@
         }
     }
 
+    function isUserKey(key, storageKey) {
+        if (key === storageKey) {
+            return `
+                    <span class="mdl-list__item-secondary-content">
+                        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+                    </span>
+                `
+        } else {
+            return ''
+        }
+    }
+
     window.saveUser = saveUser
 }())
+
+// Share it http://j.mp/fila-de-espera
